@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>フリーHTML5/CSS3ホームページテンプレート NO.006</title>
+<meta name="viewport" content="width=device-width">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" type="text/css" href="../../static/KT1/css/style.css">
+<script type="text/javascript" src="../../static/KT1/js/jquery.js"></script>
+<script type="text/javascript" src="../../static/KT1/js/script.js"></script>
+<script type="text/javascript" src="../../static/KT1/js/jquery.smoothscroll.js"></script>
+<script type="text/javascript" src="../../static/KT1/js/jquery.scrollshow.js"></script>
+<script type="text/javascript" src="../../static/KT1/js/jquery.rollover.js"></script>
+<script type="text/javascript" src="../../static/KT1/js/jquery.slidewide.js"></script>
+<script>
+$(function($){
+	if ($('#spMenu').css('display') == 'block') {
+		$('html').smoothscroll({easing : 'swing', speed : 1000, margintop : 10, headerfix : $('header')});
+	} else {
+		$('html').smoothscroll({easing : 'swing', speed : 1000, margintop : 10, headerfix : $('nav')});
+	}
+	$('.totop').scrollshow({position : 500});
+	$('.slide').slidewide({
+		touch         : true,
+		touchDistance : '80',
+		autoSlide     : true,
+		repeat        : true,
+		interval      : 3000,
+		duration      : 500,
+		easing        : 'swing',
+		imgHoverStop  : true,
+		navHoverStop  : true,
+		prevPosition  : 0,
+		nextPosition  : 0,
+		viewSlide     : 1,
+		baseWidth     : 980,
+		navImg        : false,
+		navImgCustom  : false,
+		navImgSuffix  : ''
+	});
+	$('.slidePrev img').rollover();
+	$('.slideNext img').rollover();
+	});
+</script>
+<!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/css3-mediaqueries.js"></script>
+<![endif]-->
+</head>
+<body>
+<header>
+	<div class="inner">
+		<h1><a href="index.html"><img src="../../static/KT1/images/logo.png" alt="サイト名"></a></h1>
+		<p class="summary">
+		この箇所はホームページの説明文など記載するのに最適です。
+		</p>
+	</div><!-- /.inner -->
+</header>
+
+<div id="spMenu"><span id="navBtn"><span id="navBtnIcon"></span></span></div>
+<nav>
+	<div class="inner">
+		<ul class="gnav">
+			<li><a href="index.html">ホーム</a></li>
+			<li class="subnav"><a href="index.html">会社情報</a>
+				<ul>
+					<li><a href="index.html">会社概要</a></li>
+					<li><a href="index.html">企業理念</a></li>
+					<li><a href="index.html">CSR活動</a></li>
+					<li><a href="index.html">IR情報</a></li>
+				</ul>
+			</li>
+			<li class="subnav"><a href="index.html">商品情報</a>
+				<ul>
+					<li class="subnav"><a href="index.html">商品A</a>
+						<ul>
+							<li><a href="index.html">商品A-1</a></li>
+							<li><a href="index.html">商品A-2</a></li>
+							<li><a href="index.html">商品A-3</a></li>
+						</ul>
+					</li>
+					<li class="subnav"><a href="index.html">商品B</a>
+						<ul>
+							<li><a href="index.html">商品B-1</a></li>
+							<li><a href="index.html">商品B-2</a></li>
+							<li><a href="index.html">商品B-3</a></li>
+						</ul>
+					</li>
+					<li class="subnav"><a href="index.html">商品C</a>
+						<ul>
+							<li><a href="index.html">商品C-1</a></li>
+							<li><a href="index.html">商品C-2</a></li>
+							<li><a href="index.html">商品C-3</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li><a href="index.html">採用情報</a></li>
+			<li><a href="index.html">お問い合わせ</a></li>
+			<li class="subnav"><a href="sample.html">サンプル</a>
+				<ul>
+					<li><a href="sample.html">サンプル（2カラム）</a></li>
+					<li><a href="wide.html">サンプル（1カラム）</a></li>
+					<li><a href="sample.html?id=sample">ページ内リンク（?id=）</a></li>
+					<li><a href="sample.html#sample">ページ内リンク（#）</a></li>
+					<li class="subnav"><a href="sample.html#sample">サブメニューリンク</a>
+						<ul>
+							<li><a href="index.html">サブメニュー</a></li>
+							<li><a href="index.html">サブメニュー</a></li>
+							<li><a href="index.html">サブメニュー</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div><!-- /.inner -->
+</nav>
+
+<div class="slide">
+	<ul class="slideInner">
+		<li><a href="index.html"><img src="../../static/KT1/images/photo01.jpg" alt=""></a></li>
+		<li><a href="index.html"><img src="../../static/KT1/images/photo02.jpg" alt=""></a></li>
+		<li><a href="index.html"><img src="../../static/KT1/images/photo03.jpg" alt=""></a></li>
+	</ul>
+	<div class="slidePrev"><img src="../../static/KT1/images/nav_prev.png" alt="前へ"></div>
+	<div class="slideNext"><img src="../../static/KT1/images/nav_next.png" alt="次へ"></div>
+	<div class="controlNav"></div>
+</div><!-- /.slide -->
+
+<div id="contents">
+	<div id="main">
+		<h2 id="news">新着情報</h2>
+		<dl class="info">
+			<dt><span>20XX-01-01</span></dt>
+			<dd>
+				 更新情報などを掲載するのに便利なデザインです。dlタグに『class="info"』を追加してください。
+			</dd>
+			<dt><span>20XX-01-01</span></dt>
+			<dd>
+				 更新情報などを掲載するのに便利なデザインです。
+			</dd>
+		</dl>
+		<div class="col_two_one">
+			<h3>商品一覧</h3>
+			<ul>
+				<li>
+				<img src="../../static/KT1/images/photo.png" alt="">
+				<h4>商品名</h4>
+				<p>紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文</p>
+				</li>
+				<li>
+				<img src="../../static/KT1/images/photo.png" alt="">
+				<h4>商品名</h4>
+				<p>紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文</p>
+				</li>
+				<li>
+				<img src="../../static/KT1/images/photo.png" alt="">
+				<h4>商品名</h4>
+				<p>紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文</p>
+				</li>
+				 <li>
+				<img src="../../static/KT1/images/photo.png" alt="">
+				<h4>商品名</h4>
+				<p>紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文</p>
+				</li>
+			</ul>
+			<p class="textR"><a href="index.html">&raquo;もっと見る</a></p>
+		</div><!-- /.staff -->
+	</div><!-- /#main -->
+	<div id="sub">
+		<h3>見出しh3タグ</h3>
+		<ul class="submenu">
+			<li><a href="index.html">リスト１</a></li>
+			<li><a href="index.html">リスト２</a></li>
+			<li><a href="index.html">リスト３</a></li>
+			<li><a href="index.html">リスト４</a></li>
+			<li><a href="index.html">リスト５</a></li>
+		</ul>
+		<h3>h3タグ</h3>
+		<p>
+		サブコンテンツはバナーを掲載するのに便利です。ulタグに『class="bnr"』とすれば、きれいに画像が並びます。
+		</p>
+		<ul class="bnr">
+			<li><a href="index.html"><img src="../../static/KT1/images/banner.png" alt=""></a></li>
+			<li><a href="index.html"><img src="../../static/KT1/images/banner.png" alt=""></a></li>
+			<li><a href="index.html"><img src="../../static/KT1/images/banner.png" alt=""></a></li>
+			<li><a href="index.html"><img src="../../static/KT1/images/banner.png" alt=""></a></li>
+		</ul>
+	</div><!-- /#sub -->
+</div><!-- /#contents -->
+
+<footer>
+	<div class="footmenu">
+		<ul>
+			<li><a href="index.html">HOME</a></li>
+			<li><a href="index.html">会社情報</a></li>
+			<li><a href="index.html">商品情報</a></li>
+			<li><a href="index.html">採用情報</a></li>
+			<li><a href="index.html">サイトポリシーについて</a></li>
+			<li><a href="index.html">プライバシーポリシーについて</a></li>
+			<li><a href="index.html">お問い合わせ</a></li>
+			<li><a href="sample.html">サイトマップ</a></li>
+		</ul>
+	</div><!-- /.footmenu -->
+	<div class="copyright">Copyright &#169; 20XX - 20XX SITENAME All Rights Reserved.</div><!-- /.copyright -->
+</footer>
+
+<div class="totop"><a href="#"><img src="../../static/KT1/images/totop.png" alt="ページのトップへ戻る"></a></div><!-- /.totop -->
+</body>
+</html>
