@@ -10,3 +10,22 @@ class OddsList(models.Model):
    win_odds   = models.DecimalField(max_digits=4,decimal_places=1) #単勝オッズ
    show_odds1 = models.DecimalField(max_digits=4,decimal_places=1) #複勝オッズ
    show_odds2 = models.DecimalField(max_digits=4,decimal_places=1) #複勝オッズ２
+
+class Keibajou(models.Model):
+   place  = models.CharField(max_length=20) #競馬場名
+   course = models.CharField(max_length=30) #コース距離
+
+class KeibaReporter(models.Model):
+   name     = models.CharField(max_length=30) #氏名
+   attached = models.CharField(max_length=10) #所属
+   status   = models.CharField(max_length=10) #状態
+   Hitting  = models.FloatField()             #的中率
+
+class Jockey(models.Model):
+   name       = models.CharField(max_length=30)#氏名
+   attached   = models.CharField(max_length=10)#所属
+   birthday   = models.DateField()#誕生日
+   total_wins = models.DecimalField(max_digits=4,decimal_places=1)#通算勝利数
+   status     = models.CharField(max_length=10)#状態
+
+
