@@ -25,7 +25,7 @@ class Jockey(models.Model):
    name       = models.CharField(max_length=30)#氏名
    attached   = models.CharField(max_length=10)#所属
    birthday   = models.DateField()#誕生日
-   total_wins = models.DecimalField(max_digits=4,decimal_places=1)#通算勝利数
+   total_wins = models.IntegerField()#総合勝利数
    status     = models.CharField(max_length=10)#状態
 
 
