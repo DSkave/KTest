@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>フリーHTML5/CSS3ホームページテンプレート NO.006</title>
+<title>競馬　分析システム　KーSYS</title>
 <meta name="viewport" content="width=device-width">
 <meta name="keywords" content="">
 <meta name="description" content="">
@@ -53,7 +53,7 @@ $(function($){
 	<div class="inner">
 		<h1><a href="index.html"><img src="../../static/KT1/images/logo.png" alt="サイト名"></a></h1>
 		<p class="summary">
-		この箇所はホームページの説明文など記載するのに最適です。
+		この箇所は{{ app_name }}の説明文など記載するのに最適です。
 		</p>
 	</div><!-- /.inner -->
 </header>
@@ -62,8 +62,8 @@ $(function($){
 <nav>
 	<div class="inner">
 		<ul class="gnav">
-			<li><a href="index.html">ホーム</a></li>
-			<li class="subnav"><a href="index.html">会社情報</a>
+			<li><a href="index.html">TOP</a></li>
+			<li class="subnav"><a href="index.html">データ分析</a>
 				<ul>
 					<li><a href="index.html">会社概要</a></li>
 					<li><a href="index.html">企業理念</a></li>
@@ -71,7 +71,7 @@ $(function($){
 					<li><a href="index.html">IR情報</a></li>
 				</ul>
 			</li>
-			<li class="subnav"><a href="index.html">商品情報</a>
+			<li class="subnav"><a href="index.html">K-SYS 自動予想</a>
 				<ul>
 					<li class="subnav"><a href="index.html">商品A</a>
 						<ul>
@@ -96,23 +96,7 @@ $(function($){
 					</li>
 				</ul>
 			</li>
-			<li><a href="index.html">採用情報</a></li>
-			<li><a href="index.html">お問い合わせ</a></li>
-			<li class="subnav"><a href="sample.html">サンプル</a>
-				<ul>
-					<li><a href="sample.html">サンプル（2カラム）</a></li>
-					<li><a href="wide.html">サンプル（1カラム）</a></li>
-					<li><a href="sample.html?id=sample">ページ内リンク（?id=）</a></li>
-					<li><a href="sample.html#sample">ページ内リンク（#）</a></li>
-					<li class="subnav"><a href="sample.html#sample">サブメニューリンク</a>
-						<ul>
-							<li><a href="index.html">サブメニュー</a></li>
-							<li><a href="index.html">サブメニュー</a></li>
-							<li><a href="index.html">サブメニュー</a></li>
-						</ul>
-					</li>
-				</ul>
-			</li>
+			<li><a href="index.html">管理設定</a></li>
 		</ul>
 	</div><!-- /.inner -->
 </nav>
@@ -142,27 +126,24 @@ $(function($){
 			</dd>
 		</dl>
 		<div class="col_two_one">
-			<h3>商品一覧</h3>
+			<h3>モデル一覧</h3>
 			<ul>
 				<li>
-				<img src="../../static/KT1/images/photo.png" alt="">
-				<h4>商品名</h4>
-				<p>紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文</p>
-				</li>
-				<li>
-				<img src="../../static/KT1/images/photo.png" alt="">
-				<h4>商品名</h4>
-				<p>紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文</p>
-				</li>
-				<li>
-				<img src="../../static/KT1/images/photo.png" alt="">
-				<h4>商品名</h4>
-				<p>紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文</p>
-				</li>
-				 <li>
-				<img src="../../static/KT1/images/photo.png" alt="">
-				<h4>商品名</h4>
-				<p>紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文紹介文</p>
+				    {{ model_name }}
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                 <th>モデル名</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for class_name in class_names %}
+                            <tr>
+                                <td>{{ class_name }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
 				</li>
 			</ul>
 			<p class="textR"><a href="index.html">&raquo;もっと見る</a></p>

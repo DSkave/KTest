@@ -2,6 +2,7 @@ from selenium import webdriver
 import datetime
 import sys
 
+
 class Jra_Scraping:
     #url = "http://www.jra.go.jp"
     def __init__(self):
@@ -13,6 +14,9 @@ class Jra_Scraping:
        print('test')
 
 if __name__ == "__main__":
+    #classes = map(lambda x:x[0],inspect.getmembers(models,inspect.isclass()))
+    #print(classes)
+
     #driver = webdriver.Chrome()
     #driver.get(Jra_Scraping.url)
     scp = Jra_Scraping()
