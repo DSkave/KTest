@@ -18,5 +18,8 @@ def index(request):
 
     return render(request, 'KT1/index.html',myapp_data)
 
-#def model_edit(request):
-
+def ks_admin(request):
+   admin_data={
+       'class_names': list(map(lambda x: x[0], inspect.getmembers(models, inspect.isclass))),
+   }
+   return render(request,'KT1/ks_admin.html',admin_data)
