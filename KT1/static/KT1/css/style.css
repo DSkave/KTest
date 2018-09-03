@@ -8,12 +8,13 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
 /*================================================
  *  一般・共通設定
  ================================================*/
-body {
+html,body {
 	font-size:14px;
 	color:#333;
 	font-family:"メイリオ",Meiryo,"ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",Osaka,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
 	line-height:1.6;
 	background:#fff;
+	height: 100%;
 }
 
 .inner {
@@ -45,6 +46,7 @@ nav:after {
 	overflow:hidden;
 	width:980px;
 	margin:20px auto;
+	min-height: 65%;
 	background:#fff;
 }
 
@@ -59,6 +61,20 @@ nav:after {
 	box-sizing:border-box;
 	overflow:hidden;
 	float:right;
+	width:28%;
+}
+
+#main2 {
+	box-sizing:border-box;
+	overflow:hidden;
+	float:right;
+	width:68%;
+}
+
+#sub2{
+	box-sizing:border-box;
+	overflow:hidden;
+	float:left;
 	width:28%;
 }
 
@@ -141,7 +157,7 @@ em {
 
 strong {
 	font-weight:bold;
-	color:#ff0000;
+	color: #2eff51;
 }
 
 pre {
@@ -160,10 +176,10 @@ ul,ol,dl {
 	margin:0 0 1em 0;
 }
 ul li {
-	list-style:disc;
+	list-style:none;
 }
 ol li {
-	list-style:decimal;
+	list-style:none;
 }
 li {
 	margin-left:2em;
@@ -219,8 +235,8 @@ header {
  ================================================*/
 @media print, screen and (min-width:768px) {
 	nav {
-		background:#9b0f0f;
-		border-bottom:5px solid #710000;
+		background: #2f8c1a;
+		border-bottom:5px solid #3bff86;
 		box-shadow:0 1px 3px #999;
 		z-index:3;
 	}
@@ -242,7 +258,7 @@ header {
 		display:block;
 		margin:0;
 		padding:16px 0;
-		background:#9b0f0f;
+		background: rgba(47, 140, 26, 0.98);
 		color:#fff;
 		font-size:14px;
 		font-weight:bold;
@@ -252,7 +268,7 @@ header {
 
 	nav ul li:hover > a {
 		color:#fff;
-		background:#710000;
+		background: #2f8c1a;
 	}
 
 	/* 1段目 */
@@ -400,15 +416,21 @@ header {
 /*================================================
  *  サブコンテンツ
  ================================================*/
+.submenu{
+	overflow: hidden;
+}
 .submenu li {
 	margin:0;
 	padding:0;
 	list-style:none;
 }
+
+/*
 .submenu li a:before {
 	content:"\0025a0";
 	color:#000;
-}
+}*/
+
 .submenu li a {
 	display:block;
 	padding:10px 2px;

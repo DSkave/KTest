@@ -28,4 +28,6 @@ class Jockey(models.Model):
    total_wins = models.IntegerField()#総合勝利数
    status     = models.CharField(max_length=10)#状態
 
+class JsonData(models.Model):
+   json_data = models.FileField(upload_to='model_data')
 

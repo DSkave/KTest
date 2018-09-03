@@ -1,105 +1,28 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<title>競馬　分析システム　KーSYS</title>
-<meta name="viewport" content="width=device-width">
-<meta name="keywords" content="">
-<meta name="description" content="">
-<link rel="stylesheet" type="text/css" href="../../static/KT1/css/style.css">
-<script type="text/javascript" src="../../static/KT1/js/jquery.js"></script>
-<script type="text/javascript" src="../../static/KT1/js/script.js"></script>
-<script type="text/javascript" src="../../static/KT1/js/jquery.smoothscroll.js"></script>
-<script type="text/javascript" src="../../static/KT1/js/jquery.scrollshow.js"></script>
-<script type="text/javascript" src="../../static/KT1/js/jquery.rollover.js"></script>
-<script type="text/javascript" src="../../static/KT1/js/jquery.slidewide.js"></script>
-<script>
-$(function($){
-	if ($('#spMenu').css('display') == 'block') {
-		$('html').smoothscroll({easing : 'swing', speed : 1000, margintop : 10, headerfix : $('header')});
-	} else {
-		$('html').smoothscroll({easing : 'swing', speed : 1000, margintop : 10, headerfix : $('nav')});
-	}
-	$('.totop').scrollshow({position : 500});
-	$('.slide').slidewide({
-		touch         : true,
-		touchDistance : '80',
-		autoSlide     : true,
-		repeat        : true,
-		interval      : 3000,
-		duration      : 500,
-		easing        : 'swing',
-		imgHoverStop  : true,
-		navHoverStop  : true,
-		prevPosition  : 0,
-		nextPosition  : 0,
-		viewSlide     : 1,
-		baseWidth     : 980,
-		navImg        : false,
-		navImgCustom  : false,
-		navImgSuffix  : ''
-	});
-	$('.slidePrev img').rollover();
-	$('.slideNext img').rollover();
-	});
-</script>
-<!--[if lt IE 9]>
-	<script src="js/html5shiv.js"></script>
-	<script src="js/css3-mediaqueries.js"></script>
-<![endif]-->
-</head>
-<body>
-<header>
-	<div class="inner">
-		<h1><a href="index.html"><img src="../../static/KT1/images/logo.png" alt="サイト名"></a></h1>
-		<p class="summary">
-		管理ページ
-		</p>
-	</div><!-- /.inner -->
-	<div id="spMenu"><span id="navBtn"><span id="navBtnIcon"></span></span></div>
-</header>
-<nav>
-	<div class="inner">
-		<ul class="gnav">
-			<li><a href="{% url 'KT1:index' %}  ">TOP</a></li>
-			<li class="subnav"><a href="index.html">データ分析</a>
-				<ul>
-					<li><a href="index.html">会社概要</a></li>
-					<li><a href="index.html">企業理念</a></li>
-					<li><a href="index.html">CSR活動</a></li>
-					<li><a href="index.html">IR情報</a></li>
-				</ul>
-			</li>
-			<li class="subnav"><a href="index.html">K-SYS 自動予想</a>
-				<ul>
-					<li class="subnav"><a href="index.html">商品A</a>
-						<ul>
-							<li><a href="index.html">商品A-1</a></li>
-							<li><a href="index.html">商品A-2</a></li>
-							<li><a href="index.html">商品A-3</a></li>
-						</ul>
-					</li>
-					<li class="subnav"><a href="index.html">商品B</a>
-						<ul>
-							<li><a href="index.html">商品B-1</a></li>
-							<li><a href="index.html">商品B-2</a></li>
-							<li><a href="index.html">商品B-3</a></li>
-						</ul>
-					</li>
-					<li class="subnav"><a href="index.html">商品C</a>
-						<ul>
-							<li><a href="index.html">商品C-1</a></li>
-							<li><a href="index.html">商品C-2</a></li>
-							<li><a href="index.html">商品C-3</a></li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-			<li><a href="index.html">管理設定</a></li>
-		</ul>
-	</div><!-- /.inner -->
-</nav>
-			<h3>モデル一覧</h3>
+{% extends 'KT1/base.html' %}
+
+{% block nav %}
+{% include 'KT1/nav.html' %}
+{% endblock %}
+{% block side %}
+    <div id="sub2">
+     <ul class="submenu">
+       <li><a href="#">モデル管理</a></li>
+       <li><a href="#">ユーザー管理</a></li>
+       <li><a href="#">システム管理</a></li>
+     </ul>
+    </div>
+{% endblock %}
+
+{% block content %}
+    	<div id="main2">
+            <h3>データファイル管理</h3>
+            <form action="{% url "KT1:Ksadmin" %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                        　　 {{ model_fd }}
+            </form>
+
+        <div class="col_two_one">
+            <h3>モデル管理</h3>
 			<ul>
 				<li>
                     <table border="1">
@@ -118,17 +41,15 @@ $(function($){
                     </table>
 				</li>
 			</ul>
-<ul>
+        </div>
+            <ul>
 				<li>
                     <table border="1">
-                        <thead>
-                            <tr>
-                                 <th>モデル名</th>
-                            </tr>
-                        </thead>
                         <tbody>
-                        <form action="" method="post">
-                        {{ form }}
+                        <form action="{% url "KT1:Ksadmin" %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                        　　　{{ form }}
+                            <input type="submit" value="送信">
                         </form>
                         </tbody>
                     </table>
@@ -136,5 +57,7 @@ $(function($){
 			</ul>
 
         {{ json_d }}
-</body>
-</html>
+        {{ media_root }}
+        </div>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'KT1/base.html' %}
+
+{% block nav %}
+{% include 'KT1/nav.html' %}
+{% endblock %}
+
+{% block content %}
+	<div id="main">
+		<h2 id="news">今週のレース情報</h2>
+		<dl class="info">
+			<dt><span>20XX-01-01</span></dt>
+			<dd>
+				 更新情報などを掲載するのに便利なデザインです。dlタグに『class="info"』を追加してください。
+			</dd>
+			<dt><span>20XX-01-01</span></dt>
+			<dd>
+				 更新情報などを掲載するのに便利なデザインです。
+			</dd>
+		</dl>
+		<div class="col_two_one">
+			<h3>モデル管理</h3>
+			<ul>
+				<li>
+				    {{ model_name }}
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                 <th>モデル名</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for class_name in class_names %}
+                            <tr>
+                                <td>{{ class_name }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+				</li>
+			</ul>
+			<p class="textR"><a href="index.html">&raquo;もっと見る</a></p>
+		</div><!-- /.staff -->
+	</div><!-- /#main -->
+{% endblock %}
+
+{% block side %}
+	<div id="sub">
+		<h3>サイド</h3>
+		<ul class="submenu">
+			<li><a href="index.html">リスト１</a></li>
+			<li><a href="index.html">リスト２</a></li>
+			<li><a href="index.html">リスト３</a></li>
+			<li><a href="index.html">リスト４</a></li>
+			<li><a href="index.html">リスト５</a></li>
+		</ul>
+		<h3>h3タグ</h3>
+		<p>
+		サブコンテンツはバナーを掲載するのに便利です。ulタグに『class="bnr"』とすれば、きれいに画像が並びます。
+		</p>
+		<ul class="bnr">
+			<li><a href="index.html"><img src="../../static/KT1/images/banner.png" alt=""></a></li>
+			<li><a href="index.html"><img src="../../static/KT1/images/banner.png" alt=""></a></li>
+			<li><a href="index.html"><img src="../../static/KT1/images/banner.png" alt=""></a></li>
+			<li><a href="index.html"><img src="../../static/KT1/images/banner.png" alt=""></a></li>
+		</ul>
+	</div><!-- /#sub -->
+{% endblock %}
