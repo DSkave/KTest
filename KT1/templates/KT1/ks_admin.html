@@ -16,9 +16,31 @@
 {% block content %}
     	<div id="main2">
             <h3>データファイル管理</h3>
+         <form action="{% url "KT1:Ksadmin" %}" method="post" enctype="multipart/form-data">
+            <table>
+                <thead>
+                  <th>ファイル名</th>
+                  <th>作成日時</th>
+                  <th>更新日時</th>
+                  <th>操作</th>
+                </thead>
+                <tbody>
+                {% for file_name in model_data %}
+                 <tr>
+                     <td><input type="checkbox" value="{{file_name}}"></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                 </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+         </form>
             <form action="{% url "KT1:Ksadmin" %}" method="post" enctype="multipart/form-data">
+            <table border="1">
                             {% csrf_token %}
                         　　 {{ model_fd }}
+            </table>
             </form>
 
         <div class="col_two_one">

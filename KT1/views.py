@@ -28,12 +28,15 @@ def ks_admin(request):
 #   tests = ['a','b','c']
 #   for test in tests:
 #       print(test)
-
+   file_mei=[]
+   #file_mei.append('a')
    file_lists = glob.glob(MEDIA_ROOT + '/model_data/*')
-   for file_list in file_lists:
-       file_list=os.path.basename(file_list)
-       print(file_list)
+   for file_name in file_lists:
+       file_name = os.path.basename(file_name)
+       file_mei.append(file_name)
 
+       print('test1:'+file_name)
+   print(file_mei)
    mf = forms.ModelDataCrudForm()
 
 
@@ -50,7 +53,8 @@ def ks_admin(request):
        'form': form,
        'json_d':j_data,#JSONアウトプットテスト
        'media_root': os.path.join(BASE_DIR,'media'),
-       'model_fd': mf
+       'model_fd': mf,
+       'model_data':file_name,
    }
 
    return render(request,'KT1/ks_admin.html',admin_data)
