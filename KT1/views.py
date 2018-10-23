@@ -4,6 +4,7 @@ from django.core import serializers
 from KTest.settings import BASE_DIR,MEDIA_ROOT
 from . import models
 from . import forms
+from . import ksyslib
 import inspect
 import glob
 import os
@@ -25,18 +26,26 @@ def index(request):
     return render(request, 'KT1/index2.html',myapp_data)
 
 def ks_admin(request):
-#   tests = ['a','b','c']
-#   for test in tests:
-#       print(test)
+   file_info={}
    file_mei=[]
-   #file_mei.append('a')
+   file_create_T=[]
+   file_update_T=[]
+
    file_lists = glob.glob(MEDIA_ROOT + '/model_data/*')
    for file_name in file_lists:
+       print('file name:'+file_name)
+       print('file create time:',ksyslib.file_create_time(file_name))
+       print('file update time:', ksyslib.file_update_time(file_name))
+       file_create_T.append(ksyslib.file_create_time(file_name))
        file_name = os.path.basename(file_name)
        file_mei.append(file_name)
 
+      # file_update_T.append(ksyslib.file_update_time(file_name))
+
        print('test1:'+file_name)
    print(file_mei)
+   print(file_create_T)
+
    mf = forms.ModelDataCrudForm()
 
 
@@ -54,7 +63,9 @@ def ks_admin(request):
        'json_d':j_data,#JSONアウトプットテスト
        'media_root': os.path.join(BASE_DIR,'media'),
        'model_fd': mf,
-       'model_data':file_name,
+       'model_data':file_mei,
+       'file_create_time':file_create_T,
+       #'file_update_time':file_update_T,
    }
 
    return render(request,'KT1/ks_admin.html',admin_data)

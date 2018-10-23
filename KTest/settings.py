@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'KSystem',
         'USER':'root',
-        'PASSWORD':'xecs6blades',
+        'PASSWORD':'xecs_blades',
         'HOST':'192.168.0.14',
         'PORT':'3306',
         #'OPTIONS':
