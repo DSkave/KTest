@@ -37,17 +37,12 @@ def ks_admin(request):
        print('file create time:',ksyslib.file_create_time(file_name))
        print('file update time:', ksyslib.file_update_time(file_name))
        file_create_T.append(ksyslib.file_create_time(file_name))
+       file_update_T.append(ksyslib.file_update_time(file_name))
        file_name = os.path.basename(file_name)
        file_mei.append(file_name)
 
       # file_update_T.append(ksyslib.file_update_time(file_name))
-
-       print('test1:'+file_name)
-   print(file_mei)
-   print(file_create_T)
-
    mf = forms.ModelDataCrudForm()
-
 
    form = forms.ModelSelectForm(data=request.POST,files=request.FILES)
    if form.is_valid():
@@ -65,7 +60,7 @@ def ks_admin(request):
        'model_fd': mf,
        'model_data':file_mei,
        'file_create_time':file_create_T,
-       #'file_update_time':file_update_T,
+       'file_update_time':file_update_T,
    }
 
    return render(request,'KT1/ks_admin.html',admin_data)
