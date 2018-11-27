@@ -28,10 +28,10 @@
                 <form action="" method="post">
                 {% for file_name in model_data %}
                  <tr>
-                     <td><input type="checkbox" name="upfile[]" value="{{ file_name }}">{{ file_name }}</td>
+                     <td><input type="checkbox" name="upfile" value="{{ file_name }}">{{ file_name }}</td>
                      <td>{{ file_create_time|index:forloop.counter0 }}</td>
                      <td>{{ file_update_time|index:forloop.counter0 }}</td>
-                     <td><input type="button" class="btn btn-primary" data-toggle="modal" data-target="#demoNormalModal" value="削除"></td>
+                     <td><input type="button" name="delfile" class="btn btn-primary" data-toggle="modal" data-target="#demoNormalModal" value="削除"></td>
                  </tr>
                 {% endfor %}
                 </form>
@@ -91,17 +91,11 @@
         </div>
                 <script type="text/javascript">
                 $(function(){
-                    $('[name="upfile[]"]').click(function () {
-                       if($('[name="upfile[]"]').prop("checked"))
-                      {
-                          $('[name="upfile[]"]').each(function () {
+                    $('[name="upfile"]').click(function () {
+                          $('[name="upfile"]:checked').map(function () {
                          alert($(this).val());
-
                       });
-                      }
                     });
-
-
                  });
                 </script>
 
@@ -117,14 +111,20 @@
             </div>
             <div class="modal-body">
                 <script type="text/javascript">
-                jQuery(function(){
-                      if(jQuery("[name='upfile']:checked").val())
-                        {
-                            alert("checkOK");
-                        }
+                $(function(){
+                    $('[name="upfile"]').click(function () {
+                      if($("input[name='upfile']:checked").val()){
+                         $(".modal-body").text(
+                             $(this).val());
+                      }else {
+                         // $(".modal-body").text("manko-off");
+                      }
+
+                    });
+
+                    $(".modal-body").append("penis");
                  });
                 </script>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>
