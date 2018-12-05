@@ -28,23 +28,30 @@
                 <form action="" method="post">
                 {% for file_name in model_data %}
                  <tr>
-                     <td><input type="checkbox" name="upfile" value="{{ file_name }}">{{ file_name }}</td>
+                     <td>
+                         <input type="checkbox" name="upfile" value="{{ file_name }}" onclick="checkDelete(this)">
+                         {{ file_name }}
+                     </td>
                      <td>{{ file_create_time|index:forloop.counter0 }}</td>
                      <td>{{ file_update_time|index:forloop.counter0 }}</td>
-                     <td><input type="button" name="delfile" class="btn btn-primary" data-toggle="modal" data-target="#demoNormalModal" value="削除"></td>
+                     <td><input type="button" name="delfile" class="btn btn-primary"
+                                data-toggle="modal" data-target="#demoNormalModal"
+                                value="削除" disabled="disabled">
+                     </td>
                  </tr>
                 {% endfor %}
                 </form>
                 </tbody>
             </table>
          </form>
+        <!-- djangoフォームtest
             <form action="{% url "KT1:Ksadmin" %}" method="post" enctype="multipart/form-data">
             <table border="1">
                             {% csrf_token %}
                         　　 {{ model_fd }}
             </table>
             </form>
-
+        -->
         <div class="col_two_one">
             <h3>モデル管理</h3>
 			<ul>
@@ -79,12 +86,6 @@
                     </table>
 				</li>
 			</ul>
-<!-- ボタン -->
-        <input type="checkbox" id="jqtest1" value="penis">
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#demoNormalModal">
-    デモ：ノーマルバージョン
-</button>
-
         {{ json_d }}
         {{ media_root }}
 
@@ -92,7 +93,7 @@
                 <script type="text/javascript">
                 $(function(){
                     $('[name="upfile"]').click(function () {
-                          $('[name="upfile"]:checked').map(function () {
+                         $('[name="upfile"]:checked').map(function () {
                          alert($(this).val());
                       });
                     });
@@ -100,6 +101,8 @@
                 </script>
 
 <!-- モーダルダイアログ -->
+<form action="{% url 'KT1:Ksadmin' %}" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
 <div class="modal fade" id="demoNormalModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -110,14 +113,34 @@
                 </button>
             </div>
             <div class="modal-body">
+
                 <script type="text/javascript">
                 $(function(){
+
+                     $('input[name="upfile"]').change(function () {
+                          var prop = $(this).prop('checked');
+                          if(prop){
+                              alert("check in");
+                              $('[name="delfile"]').prop('disabled',false);
+                          }else{
+                              alert("check out");
+                              $('[name="delfile"]').prop('disabled',true);
+                          }
+                      });
+
                     $('[name="upfile"]').click(function () {
-                      if($("input[name='upfile']:checked").val()){
-                         $(".modal-body").text(
-                             $(this).val());
-                      }else {
-                         // $(".modal-body").text("manko-off");
+                        var ind = $('[name="upfile"]').index(this);
+                        alert(ind);
+
+
+                      if($("[name='upfile']:checked").val()){
+                          var arr = $('[name="upfile"]:checked').map(function (value) {
+                              return $(this).val();
+                          }).get();
+                          $('[name="del_button"]').val(arr);
+                         $(".modal-body").text(arr +"を削除しますか？" );
+                       }else{
+
                       }
 
                     });
@@ -127,10 +150,28 @@
                 </script>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>
-                <button type="button" class="btn btn-primary">削除</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" name="back_button" >戻る</button>
+                <button type="submit" class="btn btn-primary" name="del_button" value="">削除</button>
             </div>
         </div>
     </div>
 </div>
+</form>
+
+<!--削除チェック-->
+    <script type="text/javascript">
+      function checkDelete(check){
+          //チェックしたところのインデックス番号を取得
+          var obj = document.getElementsByName(check.name);
+
+
+
+
+          if(check.checked){
+             alert("チェックした");
+          }else{
+              alert("チェックはずした");
+          }
+      }
+    </script>
 {% endblock %}

@@ -31,6 +31,17 @@ def ks_admin(request):
    file_create_T=[]
    file_update_T=[]
 
+   if request.method =='POST':
+       if 'del_button' in request.POST:
+           print("削除ボタンを押した")
+           print(request.POST)
+           result = models.JsonData.objects.filter(json_data__contains=request.POST['del_button'])
+           count = models.JsonData.objects.filter(json_data__icontains=request.POST['del_button']).count()
+           print("件数：",count)
+           for instance in result:
+               print("queryset test:",instance.json_data)
+
+
    file_lists = glob.glob(MEDIA_ROOT + '/model_data/*')
    for file_name in file_lists:
        print('file name:'+file_name)
