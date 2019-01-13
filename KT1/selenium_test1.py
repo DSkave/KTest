@@ -1,11 +1,13 @@
 from selenium import webdriver
 import datetime
+import os
 import sys
-
+from KTest.settings import BASE_DIR
 
 class Jra_Scraping:
     #url = "http://www.jra.go.jp"
     def __init__(self):
+      os.path.basename(BASE_DIR)
       self.url = "http://www.jra.go.jp"
       self.driver = webdriver.Chrome()
 
