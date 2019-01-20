@@ -3,6 +3,7 @@ from django.apps import apps
 
 from .models import JsonData,Jockey
 from KTest.settings import BASE_DIR,MEDIA_ROOT
+
 import glob
 import os
 
@@ -44,11 +45,12 @@ class ModelDataCrudForm(forms.Form):
         choices=RADIO_CHOICE,
         required=True,)
 
+    column_select =forms.ChoiceField(
+        label="カラム",
+        widget=forms.Select,
+    )
+    search_input = forms.ChoiceField(
+        label="絞り込み",
+        widget=forms.TextInput
+    )
 
-
-#class KeibajouForm(forms.ModelForm):
-
-#    class Meta:
-#      model = Keibajou
-       #SelectBox=forms.ChoiceField(empty_label='選択してください'),
-       #InputJSON=forms.FileField(label= "Select a JSON File" )

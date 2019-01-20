@@ -69,8 +69,24 @@
                 </tr>
             </table>
         </div>
+        <!-- ファイルインポートフォーム-->
+        <table class="file-import">
+            <thead>
+            <th>ファイル名</th>
+            <td>aaa</td>
+            </thead>
+        </table>
+        <!-- モデル操作フォーム-->
+        <table class="model-control">
+            <thead>
+            <th>{{ model_fd.column_select.label }}</th>
+            <td>{{ model_fd.column_select }}</td>
+            <th>{{ model_fd.search_input.label }}</th>
+            <td>{{ model_fd.search_input }}</td>
+            </thead>
+        </table>
+            {{ json_d }}
 
-        {{ json_d }}
 
         </div>
                 <script type="text/javascript">
@@ -140,8 +156,27 @@
 </div>
 </form>
 
-<!--削除チェック-->
+<!--モデル管理のラジオボタンでオンオフ-->
     <script type="text/javascript">
+    $(function () {
+        $('[name="radio_select"]').change(
+           function () {
+               if($('[value="0"]').prop('checked')){
+                   //ファイルインポート
+                   $('.file-import').css('display','block');
+                   $('.model-control').css('display','none');
+               }else if($('[value="1"]').prop('checked')){
+                   //モデル操作
+                   $('.file-import').css('display','none');
+                   $('.model-control').css('display','block');
+                   //$('[name="model_list"]')
+
+               }
+           }
+        )
+
+    });
+    /*
       function checkDelete(check){
           //チェックしたところのインデックス番号を取得
           var obj = document.getElementsByName(check.name);
@@ -151,5 +186,6 @@
               alert("チェックはずした");
           }
       }
+    */
     </script>
 {% endblock %}
