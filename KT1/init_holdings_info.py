@@ -1,12 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver import Chrome,ChromeOptions
 from selenium.webdriver.support.ui import WebDriverWait
-import time
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import re
 
-import os
-import sys
+
+import time,re,os,sys,unicodedata
 
 class Keiba_Scraping:
 
@@ -24,9 +23,9 @@ class Keiba_Scraping:
         kaisaiinfo_link.click()
         tmp_cal=[]
         tmp_dic={}
-        tmp_y=0
-        tmp_m=0
-        tmp_d=0
+        tmp_y=""
+        tmp_m=""
+        tmp_d=""
         #開催カレンダーページ
         try:
           #カレント年情報取得
@@ -51,10 +50,27 @@ class Keiba_Scraping:
               get_calmonth[i].click()
               get_calmonth = scp.driver.find_elements_by_xpath("//div[contains(@class,'month')]/ul/li")
               print(get_calmonth[i].text)
+              tmp_m = re.sub(r'\D','',get_calmonth[i].text)
+              tmp_m = unicodedata.normalize('NFKC',tmp_m)
+
               #day情報取得
               get_calday = scp.driver.find_elements_by_xpath("//td[contains(@class,'kaisai')]")
               for j in range(len(get_calday)):
-                  print(get_calday[j].text)
+                 # print(get_calday[j].text)
+                  get_day=get_calday[j].find_element(By.TAG_NAME,"span")
+                  get_keibajou = get_calday[j].find_elements(By.CLASS_NAME,"rc")
+                  tmp_d = get_day.text
+                  for k in range(len(get_keibajou)//2):
+                      print(get_keibajou[k].text)
+                      tmp_dic={'kaisaibi':year+'-'+ tmp_m + '-' + tmp_d,
+                               'keibajou':get_keibajou[k].text
+                              }
+                      tmp_cal.append(tmp_dic)
+
+
+          print("リストに入れたカレンダー一括表示出来るか？")
+          for i in range(len(tmp_cal)):
+              print(tmp_cal[i])
           #開催情報取得
           # テーブル内容取得
           tableElem = scp.driver.find_element_by_class_name("rc_table")

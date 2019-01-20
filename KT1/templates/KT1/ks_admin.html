@@ -29,75 +29,59 @@
                 {% for file_name in model_data %}
                  <tr>
                      <td>
-                         <input type="checkbox" name="upfile" value="{{ file_name }}" onclick="checkDelete(this)">
+                         <input type="checkbox" name="upfile" value="{{ file_name }}" >
                          {{ file_name }}
                      </td>
                      <td>{{ file_create_time|index:forloop.counter0 }}</td>
                      <td>{{ file_update_time|index:forloop.counter0 }}</td>
-                     <td><input type="button" name="delfile" class="btn btn-primary"
+                     <td><input type="button" name="delfile[]" class="btn btn-primary"
                                 data-toggle="modal" data-target="#demoNormalModal"
                                 value="削除" disabled="disabled">
                      </td>
                  </tr>
                 {% endfor %}
+                {% csrf_token %}
+                <table>
+                <tr>
+                    <td>{{ form.Meta.labels }}</td>
+                    <td>{{ form.json_data }}</td>
+                    <td><input type="submit" value="送信"></td>
+
+                </tr>
+                </table>
+
+
                 </form>
                 </tbody>
-            </table>
+            </table>　
          </form>
-        <!-- djangoフォームtest
-            <form action="{% url "KT1:Ksadmin" %}" method="post" enctype="multipart/form-data">
-            <table border="1">
-                            {% csrf_token %}
-                        　　 {{ model_fd }}
-            </table>
-            </form>
-        -->
+
         <div class="col_two_one">
             <h3>モデル管理</h3>
-			<ul>
-				<li>
-                    <table border="1">
-                        <thead>
-                            <tr>
-                                 <th>モデル名</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for class_name in class_names %}
-                            <tr>
-                                <td>{{ class_name }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-				</li>
-			</ul>
+            <table>
+                <tr>
+                 <th>{{ model_fd.model_list.label }}</th>
+                 <td>{{ model_fd.model_list }}</td>
+                </tr>
+                <tr>
+                 <th>{{ model_fd.radio_select.label }}</th>
+                 <td>{{ model_fd.radio_select }}</td>
+                </tr>
+            </table>
         </div>
-            <ul>
-				<li>
-                    <table border="1">
-                        <tbody>
-                        <form action="{% url "KT1:Ksadmin" %}" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                        　　　{{ form }}
-                            <input type="submit" value="送信">
-                        </form>
-                        </tbody>
-                    </table>
-				</li>
-			</ul>
+
         {{ json_d }}
-        {{ media_root }}
 
         </div>
                 <script type="text/javascript">
+                /*
                 $(function(){
                     $('[name="upfile"]').click(function () {
                          $('[name="upfile"]:checked').map(function () {
                          alert($(this).val());
                       });
                     });
-                 });
+                 });*/
                 </script>
 
 <!-- モーダルダイアログ -->
@@ -116,25 +100,24 @@
 
                 <script type="text/javascript">
                 $(function(){
-
-                     $('input[name="upfile"]').change(function () {
+                    var ind;//ファイルのインデックス保持用
+                    //safariだとうまく動かない
+                      $('input[name="upfile"]').change(function () {
+                          ind = $('[name="upfile"]').index(this);
+                         //削除ボタンの有効化・無効化
                           var prop = $(this).prop('checked');
                           if(prop){
-                              alert("check in");
-                              $('[name="delfile"]').prop('disabled',false);
+                              //$('input[name="delfile[]"]').eq(ind).prop('disabled',false);
+                              $('[name="delfile[]"]').eq(ind).prop('disabled',false);
                           }else{
-                              alert("check out");
-                              $('[name="delfile"]').prop('disabled',true);
+                              $('input[name="delfile[]"]').eq(ind).prop('disabled',true);
                           }
+
                       });
 
                     $('[name="upfile"]').click(function () {
-                        var ind = $('[name="upfile"]').index(this);
-                        alert(ind);
-
-
                       if($("[name='upfile']:checked").val()){
-                          var arr = $('[name="upfile"]:checked').map(function (value) {
+                          var arr = $('[name="upfile"]:checked').map(function () {
                               return $(this).val();
                           }).get();
                           $('[name="del_button"]').val(arr);
@@ -142,11 +125,10 @@
                        }else{
 
                       }
-
                     });
-
-                    $(".modal-body").append("penis");
                  });
+
+
                 </script>
             </div>
             <div class="modal-footer">
@@ -163,10 +145,6 @@
       function checkDelete(check){
           //チェックしたところのインデックス番号を取得
           var obj = document.getElementsByName(check.name);
-
-
-
-
           if(check.checked){
              alert("チェックした");
           }else{

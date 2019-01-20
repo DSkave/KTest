@@ -1,4 +1,6 @@
 from django import forms
+from django.apps import apps
+
 from .models import JsonData,Jockey
 from KTest.settings import BASE_DIR,MEDIA_ROOT
 import glob
@@ -6,25 +8,23 @@ import os
 
 
 class ModelSelectForm(forms.ModelForm):
- #     json_file = forms.FileField()
-
       class Meta:
             model = JsonData
             fields = ('json_data',)
- #           excludes = ('json_data',)
+            labels = "ファイルアップロード"
 
 
 class ModelDataCrudForm(forms.Form):
-    FOOD_CHOICES = (
-        ('apple', 'りんご'),
-        ('beef', '牛肉'),
-        ('bread', 'パン'),
-    )
-
-    D_TEST =[
-             ['penis','ペニス'],
-             ['chimpo','ちんぽ']
-            ]
+    #変数
+    MODEL_NAME=[]
+    RADIO_CHOICE=[
+                  [0,"ファイルインポート"],
+                  [1,"モデル操作"]
+                  ]
+    #モデル名取得
+    app_models = apps.get_app_config('KT1').get_models()
+    for i in app_models:
+          MODEL_NAME.append([i.__name__,i.__name__])
 
     file_lists = glob.glob(MEDIA_ROOT + '/model_data/*')
     for file_list in file_lists:
@@ -32,11 +32,19 @@ class ModelDataCrudForm(forms.Form):
 
         print(file_list)
 
-    model_file = forms.ChoiceField(
-        label='データファイルリスト',
-        widget=forms.CheckboxSelectMultiple,
-        choices=D_TEST,
+    model_list = forms.ChoiceField(
+        label='モデル',
+        widget=forms.Select,
+        choices=MODEL_NAME,
         required=True,)
+
+    radio_select = forms.ChoiceField(
+        label="操作",
+        widget=forms.RadioSelect,
+        choices=RADIO_CHOICE,
+        required=True,)
+
+
 
 #class KeibajouForm(forms.ModelForm):
 
