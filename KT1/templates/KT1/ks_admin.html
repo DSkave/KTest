@@ -55,7 +55,8 @@
                 </tbody>
             </table>　
          </form>
-
+<form>
+    {% csrf_token %}
         <div class="col_two_one">
             <h3>モデル管理</h3>
             <table>
@@ -86,9 +87,8 @@
             </thead>
         </table>
             {{ json_d }}
-
-
         </div>
+ </form>
                 <script type="text/javascript">
                 /*
                 $(function(){
@@ -117,13 +117,11 @@
                 <script type="text/javascript">
                 $(function(){
                     var ind;//ファイルのインデックス保持用
-                    //safariだとうまく動かない
                       $('input[name="upfile"]').change(function () {
                           ind = $('[name="upfile"]').index(this);
                          //削除ボタンの有効化・無効化
                           var prop = $(this).prop('checked');
                           if(prop){
-                              //$('input[name="delfile[]"]').eq(ind).prop('disabled',false);
                               $('[name="delfile[]"]').eq(ind).prop('disabled',false);
                           }else{
                               $('input[name="delfile[]"]').eq(ind).prop('disabled',true);
@@ -156,9 +154,9 @@
 </div>
 </form>
 
-<!--モデル管理のラジオボタンでオンオフ-->
+
     <script type="text/javascript">
-    $(function () {
+    $(function () {    //モデル管理のラジオボタンでオンオフ
         $('[name="radio_select"]').change(
            function () {
                if($('[value="0"]').prop('checked')){
@@ -169,23 +167,59 @@
                    //モデル操作
                    $('.file-import').css('display','none');
                    $('.model-control').css('display','block');
-                   //$('[name="model_list"]')
 
                }
            }
         )
 
     });
-    /*
-      function checkDelete(check){
-          //チェックしたところのインデックス番号を取得
-          var obj = document.getElementsByName(check.name);
-          if(check.checked){
-             alert("チェックした");
-          }else{
-              alert("チェックはずした");
-          }
-      }
-    */
+    </script>
+    <script type="text/javascript">
+    function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+    $(function(){    //モデルのセレクトボックスでajax
+        $('select[name="model_list"]').change(
+            function(){
+            alert($(this).val());
+            var modelname = $(this).val();
+            $.ajax({
+                     url:"ks_admin",
+                     type:"POST",
+                     data:
+                     {
+                       modelname,
+                     }
+                  });
+            })
+    });
     </script>
 {% endblock %}

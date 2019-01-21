@@ -42,11 +42,14 @@ def ks_admin(request):
 
    #削除ボタン
    if request.method =='POST':
+       print(request.POST)
        if 'del_button' in request.POST:
            #削除ボタンクリック
            result = models.JsonData.objects.filter(json_data__contains=request.POST['del_button'])
-           count = models.JsonData.objects.filter(json_data__icontains=request.POST['del_button']).count()
+           #count = models.JsonData.objects.filter(json_data__icontains=request.POST['del_button']).count()
+           count = eval('models.JsonData.objects.filter')(json_data__icontains=request.POST['del_button']).count()
            print("削除前件数：",count)
+
            models.JsonData.objects.filter(json_data__icontains=request.POST['del_button']).delete()
            os.remove(MEDIA_ROOT + '/model_data/' + request.POST['del_button'])
            for instance in result:
