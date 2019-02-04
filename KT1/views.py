@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.core import serializers
 from django.apps import apps
+from django.http import JsonResponse
+
 from django.contrib import admin
 from django.contrib.admin.sites import AlreadyRegistered
 
@@ -11,6 +13,7 @@ from . import ksyslib
 import inspect
 import glob
 import os
+import json
 
 from django.http import HttpResponse
 
@@ -43,13 +46,27 @@ def ks_admin(request):
    #削除ボタン
    if request.method =='POST':
        print(request.POST)
+       if 'modelname' in request.POST:
+           #モデル名選択 ajax
+           print('ajax ok',request.POST['modelname'])
+           modelname_result = \
+               apps.get_app_config('KT1').get_model(request.POST['modelname'])._meta.get_fields()
+           modelname_res={}
+           d={'test':['tes'],'test2':['tes2']}
+           tmp_i=0
+           for m in modelname_result:
+              modelname_res[str(m)] = [str(m)]
+              tmp_i+=1
+           print("test:",modelname_res)
+
+           return JsonResponse(modelname_res)
+
        if 'del_button' in request.POST:
            #削除ボタンクリック
            result = models.JsonData.objects.filter(json_data__contains=request.POST['del_button'])
            #count = models.JsonData.objects.filter(json_data__icontains=request.POST['del_button']).count()
            count = eval('models.JsonData.objects.filter')(json_data__icontains=request.POST['del_button']).count()
            print("削除前件数：",count)
-
            models.JsonData.objects.filter(json_data__icontains=request.POST['del_button']).delete()
            os.remove(MEDIA_ROOT + '/model_data/' + request.POST['del_button'])
            for instance in result:

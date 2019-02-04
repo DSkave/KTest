@@ -84,6 +84,8 @@
             <td>{{ model_fd.column_select }}</td>
             <th>{{ model_fd.search_input.label }}</th>
             <td>{{ model_fd.search_input }}</td>
+            <td><select id="select_test"></select></td>
+
             </thead>
         </table>
             {{ json_d }}
@@ -209,7 +211,6 @@
     $(function(){    //モデルのセレクトボックスでajax
         $('select[name="model_list"]').change(
             function(){
-            alert($(this).val());
             var modelname = $(this).val();
             $.ajax({
                      url:"ks_admin",
@@ -217,8 +218,18 @@
                      data:
                      {
                        modelname,
-                     }
-                  });
+                     },
+                     dataType:"json"
+                  }).done(function (ajaxres) {
+                    //alert(Object.keys(ajaxres).length);
+                    alert(JSON.stringify(ajaxres));
+                    //$('[name="column_select"]').append($('<option>').val("test2").text("tes2"));
+                    for(i in ajaxres){
+                        $('[name="column_select"]').append($('<option>').val(i).text(i));
+                    }
+                  }).fail(function (error) {
+                    alert(error)
+                  })
             })
     });
     </script>
