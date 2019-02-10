@@ -84,7 +84,7 @@
             <td>{{ model_fd.column_select }}</td>
             <th>{{ model_fd.search_input.label }}</th>
             <td>{{ model_fd.search_input }}</td>
-            <td><select id="select_test"></select></td>
+            <td><button>検索</button></td>
 
             </thead>
         </table>
@@ -103,59 +103,9 @@
                 </script>
 
 <!-- モーダルダイアログ -->
-<form action="{% url 'KT1:Ksadmin' %}" method="POST" enctype="multipart/form-data">
-{% csrf_token %}
-<div class="modal fade" id="demoNormalModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="demoModalTitle">確認</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <script type="text/javascript">
-                $(function(){
-                    var ind;//ファイルのインデックス保持用
-                      $('input[name="upfile"]').change(function () {
-                          ind = $('[name="upfile"]').index(this);
-                         //削除ボタンの有効化・無効化
-                          var prop = $(this).prop('checked');
-                          if(prop){
-                              $('[name="delfile[]"]').eq(ind).prop('disabled',false);
-                          }else{
-                              $('input[name="delfile[]"]').eq(ind).prop('disabled',true);
-                          }
-
-                      });
-
-                    $('[name="upfile"]').click(function () {
-                      if($("[name='upfile']:checked").val()){
-                          var arr = $('[name="upfile"]:checked').map(function () {
-                              return $(this).val();
-                          }).get();
-                          $('[name="del_button"]').val(arr);
-                         $(".modal-body").text(arr +"を削除しますか？" );
-                       }else{
-
-                      }
-                    });
-                 });
-
-
-                </script>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" name="back_button" >戻る</button>
-                <button type="submit" class="btn btn-primary" name="del_button" value="">削除</button>
-            </div>
-        </div>
-    </div>
-</div>
-</form>
-
+    {% block mordal %}
+      {% include 'KT1/mordal.html' %}
+    {% endblock %}
 
     <script type="text/javascript">
     $(function () {    //モデル管理のラジオボタンでオンオフ
