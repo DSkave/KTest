@@ -39,6 +39,11 @@ class ModelDataCrudForm(forms.Form):
         choices=MODEL_NAME,
         required=True,)
 
+    model_list_for_modal = forms.ChoiceField(
+        label='データ挿入先モデル',
+        widget=forms.Select,
+        choices=MODEL_NAME,)
+
     radio_select = forms.ChoiceField(
         label="操作",
         widget=forms.RadioSelect,

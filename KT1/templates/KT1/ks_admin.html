@@ -34,10 +34,23 @@
                      </td>
                      <td>{{ file_create_time|index:forloop.counter0 }}</td>
                      <td>{{ file_update_time|index:forloop.counter0 }}</td>
-                     <td><input type="button" name="delfile[]" class="btn btn-primary"
+                     <td>
+                         <table style="border: none">
+                          <td style="border-style: none">
+                               <input type="button" name="delfile[]" class="btn btn-primary"
                                 data-toggle="modal" data-target="#demoNormalModal"
                                 value="削除" disabled="disabled">
+                          </td>
+                          <td style="border-style: none">
+                                <input type="button" name="importfile[]" class="btn btn-primary"
+                                       data-toggle="modal" data-target="#ModelInsertModal"
+                                       value="インポート" disabled="disabled">
+                          </td>
+                         </table>
                      </td>
+
+
+
                  </tr>
                 {% endfor %}
                 {% csrf_token %}
@@ -158,7 +171,8 @@
             }
         });
 
-    $(function(){    //モデルのセレクトボックスでajax
+//--------------------モデル名を選択してモデルのフィールド情報取得
+    $(function(){
         $('select[name="model_list"]').change(
             function(){
             var modelname = $(this).val();
@@ -171,7 +185,6 @@
                      },
                      dataType:"json"
                   }).done(function (ajaxres) {
-                    //alert(Object.keys(ajaxres).length);
                     alert(JSON.stringify(ajaxres));
                     //$('[name="column_select"]').append($('<option>').val("test2").text("tes2"));
                     for(i in ajaxres){
@@ -182,5 +195,35 @@
                   })
             })
     });
+//-------------------ファイルインポート先のモデル情報を選択しデータインポート
+    $(function () {
+        //選択されたファイル名取得
+        var filename;
+        $('[name="importfile[]"]').click(function () {
+           var ind = $('[name="importfile[]"]').index(this);
+           filename = $('[name="upfile"]').eq(ind).val()
+
+        });
+        //インポート実行ボタンクリック
+        $('#ModelDataImportForm').submit(function (event) {
+            //通常の送信キャンセル
+            event.preventDefault();
+            //選択されたモデル名取得
+            var modelname_for_modal = $('select[name="model_list_for_modal"]').val();
+            $.ajax({
+                url:"ks_admin",
+                type:"POST",
+                data:{
+                    modelname_for_modal,
+                    filename,
+                }
+            }).done(function (response) {
+              $('#ModelInsertModal').modal('hide');
+            })
+
+
+        })
+    });
+
     </script>
 {% endblock %}

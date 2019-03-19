@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" name="del-body">
 
                 <script type="text/javascript">
                 $(function(){
@@ -20,8 +20,10 @@
                           var prop = $(this).prop('checked');
                           if(prop){
                               $('[name="delfile[]"]').eq(ind).prop('disabled',false);
+                              $('[name="importfile[]"]').eq(ind).prop('disabled',false);
                           }else{
                               $('input[name="delfile[]"]').eq(ind).prop('disabled',true);
+                              $('input[name="importfile[]"]').eq(ind).prop('disabled',true);
                           }
 
                       });
@@ -32,7 +34,7 @@
                               return $(this).val();
                           }).get();
                           $('[name="del_button"]').val(arr);
-                         $(".modal-body").text(arr +"を削除しますか？" );
+                         $('[name="del-body"]').text(arr +"を削除しますか？" );
                        }else{
 
                       }
@@ -49,4 +51,33 @@
         </div>
     </div>
 </div>
+</form>
+
+<!-- モデルインサート用　モーダルダイアログ　-->
+<form id="ModelDataImportForm" action="{% url 'KT1:Ksadmin' %}" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <div class="modal fade" id="ModelInsertModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModelInsertModal-title">データインポート：</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+　　　　　　　　　　        <td>{{ model_fd.model_list_for_modal.label }}</td>
+                         <td>{{ model_fd.model_list_for_modal }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" name="back_button" >戻る</button>
+                <button type="submit" class="btn btn-primary" name="md_insert_button" value="">実行</button>
+            </div>
+        </div>
+    </div>
+    </div>
 </form>

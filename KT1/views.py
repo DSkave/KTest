@@ -14,6 +14,7 @@ import inspect
 import glob
 import os
 import json
+import pprint
 
 from django.http import HttpResponse
 
@@ -45,9 +46,24 @@ def ks_admin(request):
 
    #削除ボタン
    if request.method =='POST':
-       print(request.POST)
+       # JSONデータインポート
+       if 'filename' and 'modelname_for_modal' in request.POST:
+           print("filename:",request.POST['filename'])
+           print("modelname:", request.POST['modelname_for_modal'])
+           model_fields = apps.get_app_config('KT1').get_model(request.POST['modelname_for_modal'])._meta.get_fields()
+           print(model_fields)
+           #ファイルチェック
+           with open(MEDIA_ROOT + '/model_data/' + request.POST['filename']) as f:
+                 print(f.read())
+                 try:
+                   json.load(f)
+                 except json.JSONDecodeError as e:
+                     print("このファイルはJSONファイルの形式ではありません",e)
+                 finally:
+                     print("ファイルチェックを終了")
+
+       # モデル名選択 ajax
        if 'modelname' in request.POST:
-           #モデル名選択 ajax
            print('ajax ok',request.POST['modelname'])
            modelname_result = \
                apps.get_app_config('KT1').get_model(request.POST['modelname'])._meta.get_fields()
@@ -60,9 +76,8 @@ def ks_admin(request):
            print("test:",modelname_res)
 
            return JsonResponse(modelname_res)
-
+       #削除ボタンクリック
        if 'del_button' in request.POST:
-           #削除ボタンクリック
            result = models.JsonData.objects.filter(json_data__contains=request.POST['del_button'])
            #count = models.JsonData.objects.filter(json_data__icontains=request.POST['del_button']).count()
            count = eval('models.JsonData.objects.filter')(json_data__icontains=request.POST['del_button']).count()
