@@ -31,3 +31,8 @@ class Jockey(models.Model):
 class JsonData(models.Model):
    json_data = models.FileField(upload_to='model_data')
 
+class TestHoldingInfo(models.Model):
+   date      = models.DateField()#開催日
+   place     = models.CharField(max_length=20)
+   race_name = models.CharField(max_length=30)
+
