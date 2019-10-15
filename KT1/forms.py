@@ -56,6 +56,7 @@ class ModelDataCrudForm(forms.Form):
     )
     search_input = forms.ChoiceField(
         label="絞り込み",
-        widget=forms.TextInput
+        widget=forms.TextInput,
+        required=False,
     )
 

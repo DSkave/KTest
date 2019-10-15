@@ -15,6 +15,25 @@
 
 {% block content %}
     	<div id="main2">
+            <!--　タブコンテンツ　-->
+<div class="tabs">
+    <input id="all" type="radio" name="tab_item" checked>
+    <label class="tab_item" for="all">総合</label>
+    <input id="programming" type="radio" name="tab_item">
+    <label class="tab_item" for="programming">プログラミング</label>
+    <input id="design" type="radio" name="tab_item">
+    <label class="tab_item" for="design">デザイン</label>
+    <div class="tab_content" id="all_content">
+        総合の内容がここに入ります
+    </div>
+    <div class="tab_content" id="programming_content">
+        プログラミングの内容がここに入ります
+</div>
+    <div class="tab_content" id="design_content">
+        デザインの内容がここに入ります
+</div>
+</div>
+　　　　　　　<!-- /.container -->
             <h3>データファイル管理</h3>
          <form action="{% url "KT1:Ksadmin" %}" method="post" enctype="multipart/form-data">
             <table class="table table-striped table-bordered">
@@ -104,6 +123,7 @@
             {{ json_d }}
         </div>
  </form>
+
                 <script type="text/javascript">
                 /*
                 $(function(){
